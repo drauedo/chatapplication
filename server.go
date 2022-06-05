@@ -126,11 +126,11 @@ func (s *server) help(c *client, args []string) {
 }
 
 func (s *server) quit(c *client, args []string) {
-	log.Printf("client has disconnected: %s", c.conn.RemoteAddr().String())
+	log.Printf("Client has disconnected: %s", c.conn.RemoteAddr().String())
 
 	s.quitCurrentRoom(c)
 
-	c.msg("sad to see you go :(")
+	c.msg("Goodbye friend!")
 
 	c.conn.Close()
 

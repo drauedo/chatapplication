@@ -3,14 +3,23 @@ package main
 import (
 	"log"
 	"net"
+	"os"
 )
+
+var port string
 
 func main() {
 	s := newServer()
 
 	go s.run()
 
-	listener, err := net.Listen("tcp", ":8080")
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = ":8080"
+	}
+
+	listener, err := net.Listen("tcp", port)
 
 	if err != nil {
 		log.Fatalf("Unable to start server: %s", err.Error())
@@ -18,7 +27,7 @@ func main() {
 	}
 
 	defer listener.Close()
-	log.Printf("started server on:8888")
+	log.Printf("started server on:%s", port)
 
 	for {
 		conn, err := listener.Accept()
